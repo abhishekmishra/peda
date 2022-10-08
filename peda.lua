@@ -10,7 +10,6 @@ changes:
 * 08/10/2022 - renamed all cmdpeda to peda, and added to public repo
 * 11/03/2022 - adding some documentation, log levels
 --]] --
-
 -- global list of commands
 local _COMMANDS = {}
 
@@ -177,9 +176,9 @@ end
 return {
     message = message,
     info = info,
-	warn = warn,
-	fatal = fatal,
-	setLogLevel = setLogLevel,
+    warn = warn,
+    fatal = fatal,
+    setLogLevel = setLogLevel,
     addCommand = addCommand,
     hasCommand = hasCommand,
     runCommand = runCommand,
