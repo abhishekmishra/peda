@@ -18,8 +18,8 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
         add_executable({projectName}
             {mainFile}
         )
-        """))
-    
+        """).strip())
+
     if mainFile.lower().endswith('.cpp'):
         with open(os.path.join(projectName, mainFile), 'w') as pf:
             pf.write(textwrap.dedent(f"""
@@ -32,7 +32,7 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
                 cout << "hello world" << endl;
                 return 0;
             }}
-            """))
+            """).strip())
 
     if mainFile.lower().endswith('.c'):
         with open(os.path.join(projectName, mainFile), 'w') as pf:
@@ -44,4 +44,24 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
                 printf("hello world\n");
                 return 0;
             }}
-            """))
+            """).strip())
+
+
+@app.command()
+def cppClass(className: str = None):
+    with open(f'{className}.h', 'w') as hf:
+        hf.write(textwrap.dedent(f"""
+        #ifndef __{className.upper()}_H__
+        #define __{className.upper()}_H__
+
+        class {className} {{
+
+        }};
+
+        #endif //  __{className.upper()}_H__
+        """).strip())
+
+    with open(f'{className}.cpp', 'w') as cppf:
+        cppf.write(textwrap.dedent(f"""
+        #include "{className}.h"
+        """).strip())
