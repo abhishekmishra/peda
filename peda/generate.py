@@ -33,3 +33,15 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
                 return 0;
             }}
             """))
+
+    if mainFile.lower().endswith('.c'):
+        with open(os.path.join(projectName, mainFile), 'w') as pf:
+            pf.write(textwrap.dedent(f"""
+            #include <stdio.h>
+
+            int main(int argc, char* argv[]) 
+            {{
+                printf("hello world\n");
+                return 0;
+            }}
+            """))
