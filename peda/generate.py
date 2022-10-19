@@ -12,6 +12,9 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
     with open(os.path.join(projectName, 'CMakeLists.txt'), 'w') as cf:
         cf.write(textwrap.dedent(f"""
         cmake_minimum_required(VERSION 3.22)
+        
+        # set the CPP standard to 17
+        set(CMAKE_CXX_STANDARD 17)
 
         project({projectName} {lang})
 
