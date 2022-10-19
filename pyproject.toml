@@ -64,3 +64,4 @@ exclude_lines = [
 
 [project.scripts]
 peda = "peda.peda:app"
+pemk = "peda.cmk:app"
