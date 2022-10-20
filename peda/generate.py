@@ -6,13 +6,14 @@ app = typer.Typer()
 
 
 @app.command()
-def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", lang: str = "CXX"):
+def cmakeMinimal(projectName: str = "hello-world",
+                 mainFile: str = "main.cpp", lang: str = "CXX"):
     print(f"Creating {projectName} with file {mainFile}")
     os.mkdir(projectName)
     with open(os.path.join(projectName, 'CMakeLists.txt'), 'w') as cf:
         cf.write(textwrap.dedent(f"""
         cmake_minimum_required(VERSION 3.22)
-        
+
         # set the CPP standard to 17
         set(CMAKE_CXX_STANDARD 17)
 
@@ -25,12 +26,12 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
 
     if mainFile.lower().endswith('.cpp'):
         with open(os.path.join(projectName, mainFile), 'w') as pf:
-            pf.write(textwrap.dedent(f"""
+            pf.write(textwrap.dedent("""
             #include <iostream>
 
             using namespace std;
 
-            int main(int argc, char* argv[]) 
+            int main(int argc, char* argv[])
             {{
                 cout << "hello world" << endl;
                 return 0;
@@ -39,10 +40,10 @@ def cmakeMinimal(projectName: str = "hello-world", mainFile: str = "main.cpp", l
 
     if mainFile.lower().endswith('.c'):
         with open(os.path.join(projectName, mainFile), 'w') as pf:
-            pf.write(textwrap.dedent(f"""
+            pf.write(textwrap.dedent("""
             #include <stdio.h>
 
-            int main(int argc, char* argv[]) 
+            int main(int argc, char* argv[])
             {{
                 printf("hello world\n");
                 return 0;
