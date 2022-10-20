@@ -32,10 +32,10 @@ def cmakeMinimal(projectName: str = "hello-world",
             using namespace std;
 
             int main(int argc, char* argv[])
-            {{
+            {
                 cout << "hello world" << endl;
                 return 0;
-            }}
+            }
             """).strip())
 
     if mainFile.lower().endswith('.c'):
@@ -44,10 +44,10 @@ def cmakeMinimal(projectName: str = "hello-world",
             #include <stdio.h>
 
             int main(int argc, char* argv[])
-            {{
+            {
                 printf("hello world\n");
                 return 0;
-            }}
+            }
             """).strip())
 
 
