@@ -16,6 +16,7 @@ def cmakeMinimal(projectName: str = "hello-world",
 
         # set the CPP standard to 17
         set(CMAKE_CXX_STANDARD 17)
+        set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
         project({projectName} {lang})
 
