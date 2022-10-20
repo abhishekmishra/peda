@@ -46,3 +46,21 @@ def sln(buildDir: str = './build'):
         else:
             print("No solution files found!", file=sys.stderr)
 
+
+@app.command(
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True}
+)
+def run(ctx: typer.Context, prog: str, buildDir: str = './build', buildConfig: str = 'Debug'):
+    if prog == None:
+        print("Program name missing", file=sys.stderr)
+    else:
+        # for extra_arg in ctx.args:
+        #     print(f"Got extra arg: {extra_arg}")
+        if platform.system() == 'Windows':
+            winExePath = os.path.join(buildDir, buildConfig, prog + '.exe')
+            # print(winExePath)
+            runCommand([winExePath] + ctx.args)
+        else:
+            exePath = os.path.join(buildDir, prog)
+            # print(exePath)
+            runCommand([exePath] + ctx.args)
