@@ -3,15 +3,11 @@ import os
 import sys
 import platform
 import typer
-import subprocess
 import shutil
 
+from .utils import runCommand
+
 app = typer.Typer()
-
-
-def runCommand(cmdArr):
-    print(cmdArr)
-    return subprocess.run(cmdArr)
 
 
 @app.command()

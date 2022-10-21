@@ -1,6 +1,8 @@
 import os
 import typer
 import textwrap
+from rich import print
+from .utils import runCommand
 
 app = typer.Typer()
 
@@ -23,6 +25,28 @@ def cmakeMinimal(projectName: str = "hello-world",
         add_executable({projectName}
             {mainFile}
         )
+        """).strip())
+
+    with open(os.path.join(projectName, 'Makefile'), 'w') as cf:
+        cf.write(textwrap.dedent(f"""
+        .PHONY: all genbuild delbuild build run clean
+
+        all: clean build run
+
+        genbuild:
+        \tpemk genbuild
+
+        delbuild:
+        \tpemk delbuild
+
+        build:
+        \tpemk build
+
+        run:
+        \tpemk run {projectName}
+
+        clean:
+        \tpemk clean
         """).strip())
 
     if mainFile.lower().endswith('.cpp'):
@@ -50,6 +74,13 @@ def cmakeMinimal(projectName: str = "hello-world",
                 return 0;
             }
             """).strip())
+
+    os.chdir(projectName)
+    runCommand(["make", "genbuild"])
+    runCommand(["make", "all"])
+    os.chdir('..')
+
+    print(f"[green]Project {projectName} generated, built and run![/green]")
 
 
 @app.command()
