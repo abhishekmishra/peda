@@ -10,9 +10,11 @@ from .utils import runCommand
 app = typer.Typer()
 
 
-@app.command()
-def genbuild(buildDir: str = './build'):
-    runCommand(["cmake", ".", "-B", buildDir])
+@app.command(
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True}
+)
+def genbuild(ctx: typer.Context, buildDir: str = './build'):
+    runCommand(["cmake", ".", "-B", buildDir] + ctx.args)
 
 
 @app.command()
@@ -20,9 +22,11 @@ def delbuild(buildDir: str = './build'):
     shutil.rmtree(buildDir)
 
 
-@app.command()
-def build(buildDir: str = './build'):
-    runCommand(["cmake", "--build", buildDir])
+@app.command(
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True}
+)
+def build(ctx: typer.Context, buildDir: str = './build'):
+    runCommand(["cmake", "--build", buildDir] + ctx.args)
 
 
 @app.command()
