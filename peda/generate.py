@@ -58,7 +58,7 @@ def cmakeMinimal(projectName: str = "hello-world",
 
             int main(int argc, char* argv[])
             {
-                cout << "hello world" << endl;
+                cout << "hello world\n";
                 return 0;
             }
             """).strip())
