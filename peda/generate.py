@@ -58,10 +58,9 @@ def cmakeMinimal(projectName: str = "hello-world",
 
             int main(int argc, char* argv[])
             {
-                cout << "hello world\n";
+                cout << "hello world\\n";
                 return 0;
-            }
-            """).strip())
+            }""").strip())
 
     if mainFile.lower().endswith('.c'):
         with open(os.path.join(projectName, mainFile), 'w') as pf:
@@ -70,7 +69,7 @@ def cmakeMinimal(projectName: str = "hello-world",
 
             int main(int argc, char* argv[])
             {
-                printf("hello world\n");
+                printf("hello world\\n");
                 return 0;
             }
             """).strip())
