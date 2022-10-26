@@ -5,8 +5,9 @@ import platform
 import typer
 import shutil
 
-from .utils import runCommand
+from .utils import runCommand, loadPedaUserConfig
 
+loadPedaUserConfig()
 app = typer.Typer()
 
 
