@@ -22,7 +22,9 @@ def loadPedaUserConfig():
 
     if os.path.exists(file_path):
         print(f"{file_path!r} exists")
-
+    else:
+        return
+    
     if module_name in sys.modules:
         print(f"{module_name!r} already in sys.modules")
     elif (spec := importlib.util.spec_from_loader(module_name, SourceFileLoader(module_name,
