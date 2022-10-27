@@ -1,3 +1,4 @@
+import sys
 import os
 import typer
 import textwrap
@@ -84,19 +85,22 @@ def cmakeMinimal(projectName: str = "hello-world",
 
 @app.command()
 def cppClass(className: str = None):
-    with open(f'{className}.h', 'w') as hf:
-        hf.write(textwrap.dedent(f"""
-        #ifndef __{className.upper()}_H__
-        #define __{className.upper()}_H__
+    if className != None:
+        with open(f'{className}.h', 'w') as hf:
+            hf.write(textwrap.dedent(f"""
+            #ifndef __{className.upper()}_H__
+            #define __{className.upper()}_H__
 
-        class {className} {{
+            class {className} {{
 
-        }};
+            }};
 
-        #endif //  __{className.upper()}_H__
-        """).strip())
+            #endif //  __{className.upper()}_H__
+            """).strip())
 
-    with open(f'{className}.cpp', 'w') as cppf:
-        cppf.write(textwrap.dedent(f"""
-        #include "{className}.h"
-        """).strip())
+        with open(f'{className}.cpp', 'w') as cppf:
+            cppf.write(textwrap.dedent(f"""
+            #include "{className}.h"
+            """).strip())
+    else:
+        print("[red]Class name cannot be empty[/red]", file=sys.stderr)
