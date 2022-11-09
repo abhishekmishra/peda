@@ -7,6 +7,8 @@
 ]]--
 
 local cli = require 'cliargs'
+local PATH = require "path"
+require 'lfs'
 
 local ABOUT = {
     VERSION = "0.0.1a",
@@ -38,6 +40,47 @@ for k, v in ipairs(args) do
     print(k .. v)
 end
 
-local config = {
+local config = {}
 
+config.workspaces = {
+	PATH.user_home() .. "/programs"
 }
+
+config.repos = {
+	"~/dotfiles"
+}
+
+function pull_repo(repo)
+	print('pulling remote for ' .. repo)
+	os.execute('git -C ' .. repo .. ' pull')
+end
+
+function is_git_repo(dir)
+	local dotgit_dir = PATH.join(dir, '.git')
+	if PATH.isdir(dotgit_dir) then
+		return true
+	end
+	return false
+end
+
+-- iterate over solo repos and pull them
+for idx, repo in ipairs(config.repos) do
+	pull_repo(repo)
+end
+
+-- iterate over entries in workspaces
+-- and pull if any of them is a directory
+-- which is a git repo
+for idx, workspace in ipairs(config.workspaces) do
+	-- print(PATH.abspath(workspace))
+	for entry in lfs.dir(workspace) do
+		-- print(entry)
+		entry = PATH.join(workspace, entry)
+		if PATH.isdir(entry) then
+			-- print(entry .. ' is a directory')
+			if is_git_repo(entry) then
+				pull_repo(entry)
+			end
+		end
+	end
+end

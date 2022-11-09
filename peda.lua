@@ -11,7 +11,7 @@ local cli = require 'cliargs'
 local ABOUT = {
     VERSION = "0.0.1a",
     AUTHOR = "Abhishek Mishra",
-    PROGRAM_NAME = "cliargs.lua",
+    PROGRAM_NAME = "peda.lua",
 }
 
 -- this is called when the flag -v or --version is set
