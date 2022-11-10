@@ -39,7 +39,8 @@ run:
 ifeq ($(OSFLAG),WIN32)
 	<%= builddir %>/bin/Debug/<%= projectname %> <%= runargs %>
 else ifeq ($(OSFLAG),OSX)
-	open -n <%= builddir %>/bin/<%= projectname %>.app --args <%= runargs %>
+	#open -n <%= builddir %>/bin/<%= projectname %>.app --args <%= runargs %>
+	<%= builddir %>/bin/<%= projectname %>.app/Contents/MacOS/picoturtle --args <%= runargs %>
 else
 	<%= builddir %>/bin/<%= projectname %> <%= runargs %>
 endif
