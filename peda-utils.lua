@@ -51,7 +51,9 @@ function progress_bar(iteration, total, prefix, suffix,
 	end
 end
 
+--[[
 progress_bar(0, 56, 'whaa', 'y', 2, nil, nil, nil)
 for i=1,56 do
 	progress_bar(i, 56, 'whaa', 'y', 2, nil, nil, nil)
 end
+--]]
