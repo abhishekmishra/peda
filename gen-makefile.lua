@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+
 local etlua = require "etlua"
 local template = etlua.compile([[
 .PHONY: all genbuild delbuild build run clean install help sln
