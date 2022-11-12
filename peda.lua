@@ -7,6 +7,7 @@
 ]]--
 
 local cli = require 'cliargs'
+local peda_scripts = require 'peda_scripts'
 
 local ABOUT = {
     VERSION = "0.0.1a",
@@ -26,6 +27,11 @@ cli:set_name(ABOUT.PROGRAM_NAME)
 -- A flag with both the short-key and --expanded-key notations, and callback function
 cli:flag("-v, --version", "prints the program's version and exits", print_version)
 
+for idx, script in ipairs(peda_scripts) do
+    local cmd = cli:command(script.name, script.desc)
+    cmd:file(script.name .. '.lua')
+end
+
 -- Parses from _G['arg']
 local args, err = cli:parse(arg)
 
@@ -35,6 +41,6 @@ if not args and err then
   os.exit(1)
 end
 
-for k, v in ipairs(args) do
-    print(k .. v)
-end
+-- for k, v in ipairs(args) do
+--     print(k .. v)
+-- end
