@@ -38,9 +38,10 @@ build:
 run:
 ifeq ($(OSFLAG),WIN32)
 	<%= builddir %>/bin/Debug/<%= projectname %> <%= runargs %>
-else ifeq ($(OSFLAG),OSX)
-	#open -n <%= builddir %>/bin/<%= projectname %>.app --args <%= runargs %>
-	<%= builddir %>/bin/<%= projectname %>.app/Contents/MacOS/picoturtle --args <%= runargs %>
+#uncomment the lines below to run macos bundles (if build produces one on macos)
+#else ifeq ($(OSFLAG),OSX)
+#	#open -n <%= builddir %>/bin/<%= projectname %>.app --args <%= runargs %>
+#	<%= builddir %>/bin/<%= projectname %>.app/Contents/MacOS/<%= projectname %> --args <%= runargs %>
 else
 	<%= builddir %>/bin/<%= projectname %> <%= runargs %>
 endif
@@ -53,7 +54,7 @@ install:
 
 sln:
 ifeq ($(OSFLAG),WIN32)
-	cygstart ".\build\picoturtle.sln"
+	cygstart ".\build\<%= projectname %>.sln"
 else
 	echo "No solution file available on this platform"
 endif
