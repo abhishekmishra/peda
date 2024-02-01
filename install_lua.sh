@@ -36,8 +36,8 @@ fi
 
 CURRENT_DIR=`pwd`
 
-LUA_VERSION=5.4.4
-LUAROCKS_VERSION=3.9.1
+LUA_VERSION=5.4.6
+LUAROCKS_VERSION=3.9.2
 WORK_DIR=.luainstall
 
 # top folder of lua install where
@@ -51,11 +51,19 @@ mkdir -p ${WORK_DIR}
 # for instructions see lua documentation.
 cd ${WORK_DIR}
 
-curl -R -O http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz
+curl -R -O https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz
+
+echo "********** Downloaded lua ..."
+
 tar zxf lua-${LUA_VERSION}.tar.gz
+
+echo "********** Unzip complete ..."
+
 cd lua-${LUA_VERSION}
 make all test
 make install INSTALL_TOP=${LUA_INSTALL_TOP_DIR}
+
+echo "********** Build+Install done ..."
 
 cd ${CURRENT_DIR}
 
@@ -64,11 +72,19 @@ export PATH=${LUA_INSTALL_TOP_DIR}/bin:${PATH}
 cd ${WORK_DIR}
 
 curl -R -O https://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VERSION}.tar.gz
+
+echo "********** Downloaded luarocks ..."
+
 tar zxpf luarocks-${LUAROCKS_VERSION}.tar.gz
+
+echo "********** Unzip complete ..."
+
 cd luarocks-${LUAROCKS_VERSION}
 ./configure --prefix=${LUA_INSTALL_TOP_DIR}
 make
 make install
+
+echo "********** Build+Install done ..."
 
 # Return to current directory to clean-up
 cd ${CURRENT_DIR}
@@ -79,3 +95,5 @@ rm -fR ${WORK_DIR}/luarocks-${LUAROCKS_VERSION}
 rm ${WORK_DIR}/luarocks-${LUAROCKS_VERSION}.tar.gz
 
 rmdir ${WORK_DIR}
+
+echo "********** Cleanup done ..."
